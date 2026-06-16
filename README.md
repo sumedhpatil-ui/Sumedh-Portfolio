@@ -19,3 +19,7 @@ A full-stack portfolio website with a contact form backed by MongoDB.
 1. Clone the repo
 2. `cd backend && npm install`
 3. Create a `.env` file in `/backend` with:
+
+<!-- username - sumedhadmin
+Admin Key - Sumedha1318 // render && MongoDB && Admin Website
+mongodb+srv://sumedhadmin:<db_password>@cluster0.7ao2t4r.mongodb.net/?appName=Cluster0 -->
