@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin — Messages</title>
+  <meta name="robots" content="noindex, nofollow" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .admin-wrap { max-width: 800px; margin: 0 auto; padding: 3rem 1.5rem; }
+    .admin-login { max-width: 400px; margin: 6rem auto; padding: 2rem; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); }
+    .msg-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.25rem; margin-bottom: 1rem; }
+    .msg-card.unread { border-left: 3px solid var(--accent); }
+    .msg-top { display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 0.5rem; }
+    .msg-name { font-family: var(--font-display); font-weight: 600; }
+    .msg-email { font-family: var(--font-mono); font-size: 0.8rem; color: var(--accent); }
+    .msg-date { font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-dim); }
+    .msg-body { margin: 0.75rem 0; color: var(--text-dim); white-space: pre-wrap; }
+    .msg-actions { display: flex; gap: 1rem; font-family: var(--font-mono); font-size: 0.8rem; }
+    .msg-actions button { background: none; border: none; color: var(--accent); cursor: pointer; padding: 0; font-family: var(--font-mono); font-size: 0.8rem; }
+    .msg-actions button.danger { color: var(--accent-coral); }
+    .empty-state { text-align: center; color: var(--text-dim); padding: 3rem 0; font-family: var(--font-mono); }
+  </style>
+</head>
+<body>
+
+  <div id="loginScreen" class="admin-login">
+    <h2 class="section-title" style="margin-bottom:1.5rem;">Admin Login</h2>
+    <div class="form-row" style="margin-bottom:1.25rem;">
+      <label for="adminKey">admin key</label>
+      <input type="password" id="adminKey" placeholder="enter admin key" />
+    </div>
+    <button class="btn btn-primary" id="loginBtn" style="width:100%;">view messages</button>
+    <p class="form-status" id="loginStatus"></p>
+  </div>
+
+  <div id="adminPanel" class="admin-wrap" style="display:none;">
+    <div class="msg-top" style="margin-bottom:2rem;">
+      <h2 class="section-title" style="margin:0;">Messages</h2>
+      <button class="btn btn-ghost" id="logoutBtn">log out</button>
+    </div>
+    <div id="messagesList"></div>
+  </div>
+
+  <script>
+    // Same backend URL used by the contact form — update this to match.
+    const API_BASE = 'https://YOUR-BACKEND-URL.onrender.com/api';
+
+    const loginScreen = document.getElementById('loginScreen');
+    const adminPanel = document.getElementById('adminPanel');
+    const loginBtn = document.getElementById('loginBtn');
+    const logoutBtn = document.getElementById('logoutBtn');
+    const adminKeyInput = document.getElementById('adminKey');
+    const loginStatus = document.getElementById('loginStatus');
+    const messagesList = document.getElementById('messagesList');
+
+    function getKey() {
+      return sessionStorage.getItem('adminKey');
+    }
+
+    async function loadMessages() {
+      const key = getKey();
+      try {
+        const res = await fetch(`${API_BASE}/messages`, {
+          headers: { 'x-admin-key': key },
+        });
+        if (!res.ok) throw new Error('Invalid admin key.');
+        const messages = await res.json();
+        renderMessages(messages);
+        loginScreen.style.display = 'none';
+        adminPanel.style.display = 'block';
+      } catch (err) {
+        loginStatus.textContent = `⚠ ${err.message}`;
+        loginStatus.style.color = '#F78166';
+        sessionStorage.removeItem('adminKey');
+      }
+    }
+
+    function renderMessages(messages) {
+      if (!messages.length) {
+        messagesList.innerHTML = '<p class="empty-state">No messages yet.</p>';
+        return;
+      }
+      messagesList.innerHTML = messages.map(m => `
+        <div class="msg-card ${m.read ? '' : 'unread'}" data-id="${m._id}">
+          <div class="msg-top">
+            <div>
+              <span class="msg-name">${escapeHtml(m.name)}</span> &nbsp;
+              <span class="msg-email">${escapeHtml(m.email)}</span>
+            </div>
+            <span class="msg-date">${new Date(m.createdAt).toLocaleString()}</span>
+          </div>
+          <p class="msg-body">${escapeHtml(m.message)}</p>
+          <div class="msg-actions">
+            ${!m.read ? `<button data-action="read" data-id="${m._id}">mark read</button>` : ''}
+            <button data-action="delete" data-id="${m._id}" class="danger">delete</button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function escapeHtml(str) {
+      const div = document.createElement('div');
+      div.textContent = str;
+      return div.innerHTML;
+    }
+
+    messagesList.addEventListener('click', async (e) => {
+      const btn = e.target.closest('button');
+      if (!btn) return;
+      const { action, id } = btn.dataset;
+      const key = getKey();
+
+      if (action === 'read') {
+        await fetch(`${API_BASE}/messages/${id}/read`, {
+          method: 'PATCH',
+          headers: { 'x-admin-key': key },
+        });
+        loadMessages();
+      }
+      if (action === 'delete') {
+        if (!confirm('Delete this message permanently?')) return;
+        await fetch(`${API_BASE}/messages/${id}`, {
+          method: 'DELETE',
+          headers: { 'x-admin-key': key },
+        });
+        loadMessages();
+      }
+    });
+
+    loginBtn.addEventListener('click', () => {
+      const key = adminKeyInput.value.trim();
+      if (!key) return;
+      sessionStorage.setItem('adminKey', key);
+      loadMessages();
+    });
+
+    adminKeyInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') loginBtn.click();
+    });
+
+    logoutBtn.addEventListener('click', () => {
+      sessionStorage.removeItem('adminKey');
+      adminPanel.style.display = 'none';
+      loginScreen.style.display = 'block';
+      adminKeyInput.value = '';
+    });
+
+    // Auto-login if key already in session
+    if (getKey()) loadMessages();
+  </script>
+</body>
+</html>

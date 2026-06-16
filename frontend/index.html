@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sumedh Patil — Portfolio</title>
+  <meta name="description" content="Portfolio of Sumedh Patil, Computer Science student." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ============ NAV ============ -->
+  <header class="nav" id="top">
+    <div class="nav-inner">
+      <a href="#top" class="nav-logo">sumedh<span class="dot">.</span>dev</a>
+      <nav class="nav-links">
+        <a href="#about">about</a>
+        <a href="#projects">projects</a>
+        <a href="#skills">skills</a>
+        <a href="#contact">contact</a>
+      </nav>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- ============ HERO : editor-style signature ============ -->
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="editor">
+        <div class="editor-titlebar">
+          <span class="dot-group"><span class="c-dot red"></span><span class="c-dot yellow"></span><span class="c-dot green"></span></span>
+          <span class="editor-tab">about_me.js</span>
+        </div>
+        <div class="editor-body">
+<pre><code><span class="ln">1</span><span class="kw">const</span> <span class="va">developer</span> = {
+<span class="ln">2</span>  name: <span class="str">"Sumedh Patil"</span>,
+<span class="ln">3</span>  role: <span class="str">"Computer Science Student"</span>,
+<span class="ln">4</span>  status: <span class="str">"<span id="typedStatus"></span><span class="cursor">|</span>"</span>,
+<span class="ln">5</span>  stack: [<span class="str">"HTML"</span>, <span class="str">"CSS"</span>, <span class="str">"JS"</span>],
+<span class="ln">6</span>};</code></pre>
+        </div>
+      </div>
+
+      <div class="hero-text">
+        <p class="eyebrow">// portfolio.init()</p>
+        <h1>Building things,<br>one bug at a time.</h1>
+        <p class="hero-sub">I'm a CSE undergrad learning to turn ideas into working code. This site documents what I've built so far — and what's next.</p>
+        <div class="hero-cta">
+          <a href="#projects" class="btn btn-primary">view projects</a>
+          <a href="#contact" class="btn btn-ghost">get in touch</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ ABOUT ============ -->
+  <section class="section" id="about">
+    <div class="section-inner">
+      <p class="section-label">01 / about</p>
+      <h2 class="section-title">A bit about me</h2>
+      <div class="about-grid">
+        <p class="about-text">
+          I'm <strong>Sumedh</strong>, a third-year Computer Science student with a growing interest in web development.
+          I started by tinkering with HTML and CSS to rebuild pages I liked, and that turned into actually wanting
+          to understand how the web works — layout, logic, and everything in between.
+          <br><br>
+          Right now I'm focused on strengthening my fundamentals in JavaScript and exploring React, while building
+          small projects that solve real (if small) problems. I learn best by building, breaking, and fixing things.
+        </p>
+        <div class="about-meta">
+          <div class="meta-row"><span class="meta-key">education</span><span class="meta-val">B.Tech, Computer Science (3rd Year)</span></div>
+          <div class="meta-row"><span class="meta-key">focus</span><span class="meta-val">Frontend Development</span></div>
+          <div class="meta-row"><span class="meta-key">learning</span><span class="meta-val">React, DSA</span></div>
+          <div class="meta-row"><span class="meta-key">based_in</span><span class="meta-val">India</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PROJECTS ============ -->
+  <section class="section section-alt" id="projects">
+    <div class="section-inner">
+      <p class="section-label">02 / projects</p>
+      <h2 class="section-title">Things I've built</h2>
+
+      <div class="project-grid">
+
+        <article class="project-card">
+          <div class="project-top">
+            <span class="project-tag">web app</span>
+            <span class="project-status">shipped</span>
+          </div>
+          <h3>Task Tracker</h3>
+          <p>A to-do list app with local storage persistence, due dates, and category filters. Built to practice DOM manipulation and event handling.</p>
+          <div class="project-stack">
+            <span>HTML</span><span>CSS</span><span>JavaScript</span>
+          </div>
+          <div class="project-links">
+            <a href="#" target="_blank" rel="noopener">live demo →</a>
+            <a href="#" target="_blank" rel="noopener">source code →</a>
+          </div>
+        </article>
+
+        <article class="project-card">
+          <div class="project-top">
+            <span class="project-tag">web app</span>
+            <span class="project-status">shipped</span>
+          </div>
+          <h3>Weather Now</h3>
+          <p>Fetches live weather data from a public API based on city search, with error handling for invalid input and a clean card-based UI.</p>
+          <div class="project-stack">
+            <span>JavaScript</span><span>REST API</span><span>CSS</span>
+          </div>
+          <div class="project-links">
+            <a href="#" target="_blank" rel="noopener">live demo →</a>
+            <a href="#" target="_blank" rel="noopener">source code →</a>
+          </div>
+        </article>
+
+        <article class="project-card">
+          <div class="project-top">
+            <span class="project-tag">website</span>
+            <span class="project-status">in progress</span>
+          </div>
+          <h3>This Portfolio</h3>
+          <p>The site you're looking at right now. Built from scratch to practice responsive layout, custom design systems, and clean semantic markup.</p>
+          <div class="project-stack">
+            <span>HTML</span><span>CSS</span><span>JavaScript</span>
+          </div>
+          <div class="project-links">
+            <a href="#" target="_blank" rel="noopener">source code →</a>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SKILLS ============ -->
+  <section class="section" id="skills">
+    <div class="section-inner">
+      <p class="section-label">03 / skills</p>
+      <h2 class="section-title">What I work with</h2>
+
+      <div class="skills-grid">
+        <div class="skill-block">
+          <h4>Languages</h4>
+          <div class="tag-row">
+            <span class="tag">HTML</span>
+            <span class="tag">CSS</span>
+            <span class="tag">JavaScript</span>
+            <span class="tag">C++</span>
+            <span class="tag">Python</span>
+          </div>
+        </div>
+        <div class="skill-block">
+          <h4>Tools</h4>
+          <div class="tag-row">
+            <span class="tag">Git</span>
+            <span class="tag">GitHub</span>
+            <span class="tag">VS Code</span>
+            <span class="tag">Figma</span>
+          </div>
+        </div>
+        <div class="skill-block">
+          <h4>Currently learning</h4>
+          <div class="tag-row">
+            <span class="tag tag-accent">React</span>
+            <span class="tag tag-accent">Node.js</span>
+            <span class="tag tag-accent">Data Structures</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CONTACT ============ -->
+  <section class="section section-alt" id="contact">
+    <div class="section-inner">
+      <p class="section-label">04 / contact</p>
+      <h2 class="section-title">Let's talk</h2>
+      <p class="contact-sub">Have a project, an opportunity, or just want to say hi? My inbox is open.</p>
+
+      <form class="contact-form" id="contactForm" novalidate>
+        <div class="form-row">
+          <label for="name">name</label>
+          <input type="text" id="name" name="name" placeholder="your name" required />
+        </div>
+        <div class="form-row">
+          <label for="email">email</label>
+          <input type="email" id="email" name="email" placeholder="you@example.com" required />
+        </div>
+        <div class="form-row">
+          <label for="message">message</label>
+          <textarea id="message" name="message" rows="5" placeholder="what's on your mind?" required></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">send message</button>
+        <p class="form-status" id="formStatus" role="status"></p>
+      </form>
+
+      <div class="contact-links">
+        <a href="mailto:sumedhpatil700@gmail.com">sumedhpatil700@gmail.com</a>
+        <a href="https://github.com/sumedhpatil-ui" target="_blank" rel="noopener">GitHub</a>
+        <a href="https://linkedin.com/in/sumedh-patil-a089a8333" target="_blank" rel="noopener">LinkedIn</a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <p>&copy; 2026 Sumedh Patil. Built with HTML, CSS &amp; JavaScript.</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
