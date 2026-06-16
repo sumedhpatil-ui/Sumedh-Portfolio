@@ -54,7 +54,7 @@ navLinks.querySelectorAll('a').forEach(link => {
 // ============================================
 // Replace this with your deployed Render backend URL.
 // Example: 'https://sumedh-portfolio-api.onrender.com/api/contact'
-const API_URL = 'https://YOUR-BACKEND-URL.onrender.com/api/contact';
+const API_URL = 'https://sumedh-portfolio.onrender.com/api/contact';
 
 const form = document.getElementById('contactForm');
 const status = document.getElementById('formStatus');
