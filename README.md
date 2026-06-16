@@ -3,6 +3,7 @@
 A full-stack portfolio website with a contact form backed by MongoDB.
 
 🌐 **Live site:** https://sumedh-portfolio.onrender.com
+🌐 **Live Admin site:** https://sumedh-portfolio.onrender.com/admin.html
 
 ## Tech Stack
 - Frontend: HTML, CSS, JavaScript
