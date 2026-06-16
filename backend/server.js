@@ -2,6 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
+const path = require('path');
 const rateLimit = require('express-rate-limit');
 const apiRoutes = require('./routes/api');
 
@@ -20,6 +21,9 @@ app.use(
 );
 app.use(express.json({ limit: '20kb' }));
 
+// Serve frontend static files
+app.use(express.static(path.join(__dirname, '../frontend')));
+
 // Limit contact form submissions to prevent spam/abuse: 5 per 15 min per IP
 const contactLimiter = rateLimit({
   windowMs: 15 * 60 * 1000,
@@ -32,7 +36,7 @@ app.use('/api/contact', contactLimiter);
 app.use('/api', apiRoutes);
 
 app.get('/', (req, res) => {
-  res.json({ status: 'ok', message: 'Portfolio backend is running.' });
+  res.sendFile(path.join(__dirname, '../frontend/index.html'));
 });
 
 app.get('/health', (req, res) => res.json({ status: 'ok' }));
